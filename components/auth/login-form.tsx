@@ -179,15 +179,25 @@ export function LoginForm() {
           </Button>
         </div>
 
-        <p className="text-center text-xs text-muted-foreground">
-          Don&apos;t have an account?{" "}
-          <button
-            type="button"
-            className="font-medium text-primary hover:underline"
-          >
-            Hubungi Admin Sekolah
-          </button>
-        </p>
+<p
+  onClick={() => {
+    const pesan = `Hallo Admin,Saya belum memiliki akun belajar.id untuk login ke aplikasi  SIKOLA.
+
+Nama: 
+Kelas: 
+
+Mohon bantu dibuatkan akun saya.
+Terima kasih.`;
+
+    window.open(
+      `https://wa.me/6281546422640?text=${encodeURIComponent(pesan)}`,
+      "_blank"
+    );
+  }}
+  className="cursor-pointer text-blue-600 hover:underline"
+>
+  Don't have an account? Hubungi Admin Sekolah
+</p>
       </form>
     </div>
   );
