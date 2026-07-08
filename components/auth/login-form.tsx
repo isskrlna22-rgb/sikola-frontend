@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 
@@ -83,23 +84,54 @@ function RoleToggle({
 }
 
 export function LoginForm() {
+  const router = useRouter();
+
   const [role, setRole] = React.useState<Role>("student");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit(event: React.FormEvent) {
+  event.preventDefault();
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
+      return;
+    }
+
+    alert(data.message);
+
+    if (data.role === "admin") {
+      router.push("/dashboard");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Tidak dapat terhubung ke server.");
   }
+}
 
   return (
     <div className="w-full rounded-[2rem] bg-card p-6 shadow-xl">
       <div className="mb-4 flex flex-col items-center">
         <Image
-          src="/mascot-penguin.png"
+          src="/image/mascot1.png"
           alt="Maskot penguin SIKOLA"
-          width={96}
-          height={96}
+          width={100}
+          height={120}
           priority
         />
       </div>

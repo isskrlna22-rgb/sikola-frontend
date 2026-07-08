@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bird } from "lucide-react";
+import Image from "next/image";
 
 import { LoginForm } from "@/components/auth/login-form";
 
@@ -18,15 +18,13 @@ export default function LoginPage() {
         {/* Header logo */}
         <div className="flex items-center gap-2">
           {/* Placeholder logo — ganti dengan aset resmi SIKOLA (ikon rumah/sekolah) */}
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/20 text-accent">
-            <Bird className="h-5 w-5" />
-          </div>
-          <div className="leading-tight">
-            <p className="text-lg font-bold text-primary">SIKOLA</p>
-            <p className="-mt-1 text-[10px] uppercase tracking-wide text-muted-foreground">
-              Smart School
-            </p>
-          </div>
+          <Image
+        src="/image/logo.png"
+        alt="Logo SIKOLA"
+        width={90}
+        height={90}
+/>
+          
         </div>
 
         {/* Welcome + mascot */}
@@ -39,9 +37,6 @@ export default function LoginPage() {
           </div>
 
           {/* Placeholder mascot — ganti dengan ilustrasi resmi burung hantu SIKOLA */}
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Bird className="h-10 w-10" />
-          </div>
         </div>
 
         {/* Card form login */}
