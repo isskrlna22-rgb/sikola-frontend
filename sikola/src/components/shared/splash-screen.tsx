@@ -46,8 +46,12 @@ export function SplashScreen() {
         Memuat aplikasi SIKOLA…
       </p>
 
-      <div className="relative z-10 flex flex-col items-center px-8 pt-20 text-center">
-        <Logo variant="reversed" size="lg" showTagline />
+      <div className="relative z-10 flex flex-col items-center px-8 pt-12 text-center">
+        <Logo
+          tone="white"
+          size="lg"
+          showTagline
+        />
       </div>
 
       <div className="relative z-10 flex flex-1 items-center justify-center px-10">
@@ -55,7 +59,7 @@ export function SplashScreen() {
           pose="wave"
           alt="Maskot SIKO melambaikan tangan menyambut pengguna"
           priority
-          className="w-52 drop-shadow-2xl sm:w-60"
+          className="w-72 drop-shadow-2xl"
         />
       </div>
 
@@ -72,7 +76,7 @@ export function SplashScreen() {
         />
       </svg>
       <svg
-        className="absolute bottom-16 left-0 w-full text-white/15"
+        className="absolute bottom-8 left-0 w-full text-white/15"
         viewBox="0 0 400 120"
         preserveAspectRatio="none"
         aria-hidden="true"

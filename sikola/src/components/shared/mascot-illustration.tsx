@@ -9,6 +9,16 @@ import { cn } from "@/lib/utils";
  */
 const MASCOT_POSES = {
   wave: { src: "/images/mascot-wave.png", width: 538, height: 607 },
+  "qr-checkin": {
+    src: "/images/mascot-qr-checkin.png",
+    width: 374,
+    height: 328,
+  },
+  "academic-hub": {
+    src: "/images/mascot-academic-hub.png",
+    width: 359,
+    height: 378,
+  },
 } as const;
 
 export type MascotPose = keyof typeof MASCOT_POSES;
