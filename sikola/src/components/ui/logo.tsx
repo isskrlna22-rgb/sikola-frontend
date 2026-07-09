@@ -25,7 +25,10 @@ const TAGLINE_CLASS: Record<LogoSize, string> = {
   lg: "text-body-base",
 };
 
-const LOGO_SRC = "/images/logo/logo-sikola-white.svg";
+const LOGO_SRC = {
+  color: "/images/logo/logo-sikola.svg",
+  white: "/images/logo/logo-sikola-white.svg",
+} as const;
 const LOGO_ASPECT_RATIO = 3178 / 970; // width / height asli file sumber
 
 export function Logo({
@@ -40,12 +43,11 @@ export function Logo({
   return (
     <div className={cn("flex flex-col items-center gap-1.5", className)}>
       <Image
-        src={LOGO_SRC}
+        src={LOGO_SRC[tone]}
         alt="SIKOLA - Smart School"
         width={width}
         height={height}
         priority
-        className={cn()}
       />
       {showTagline && (
         <p

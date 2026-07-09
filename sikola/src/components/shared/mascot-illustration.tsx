@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * sumber kebenaran untuk nama pose -> file.
  */
 const MASCOT_POSES = {
-  wave: { src: "/images/mascot-wave.png", width: 538, height: 607 },
+  wave: { src: "/images/mascott-wave.png", width: 538, height: 607 },
   "qr-checkin": {
     src: "/images/mascot-qr-checkin.png",
     width: 374,

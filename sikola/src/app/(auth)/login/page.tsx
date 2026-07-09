@@ -11,7 +11,6 @@ import { Input, PasswordInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { GoogleIcon } from "@/components/ui/google-icon";
-import { Apple } from "lucide-react";
 import { ContactAdminLink } from "@/components/shared/contact-admin-link";
 import { authService } from "@/services/auth-service";
 
@@ -58,7 +57,11 @@ export default function LoginPage() {
     <div className="flex flex-1 flex-col bg-background">
       <div className="flex items-start justify-between gap-4 px-6 pt-8">
         <div>
-          <Logo size="sm" className="items-start" />
+          <Logo
+             tone="color"
+             size="sm"
+              className="items-start"
+            />
           <h1 className="mt-5 font-heading text-h2 font-bold text-primary-dark">
             Welcome !
           </h1>
@@ -122,14 +125,8 @@ export default function LoginPage() {
             >
               Google
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              leftIcon={<Apple className="size-5" aria-hidden="true" />}
-            >
-              Apple
-            </Button>
-          </div>
+        </div>
+
         </form>
 
         <p className="mt-6 text-center text-body-sm text-text-secondary">

@@ -45,7 +45,27 @@ export function OnboardingSlide({
         <button
           type="button"
           onClick={onSkip}
-          className="rounded-full bg-surface px-4 py-2 text-body-sm font-semibold text-text-primary shadow-sm"
+          className="
+              rounded-full
+              bg-white/80
+              backdrop-blur-md
+              border
+              border-white/40
+              px-4
+              py-2
+              text-body-sm
+              font-semibold
+              text-text-primary
+              shadow-sm
+
+              transition-all
+              duration-200
+
+              hover:-translate-y-0.5
+              hover:shadow-lg
+
+              active:scale-95
+              "
         >
           Skip
         </button>
@@ -58,8 +78,8 @@ export function OnboardingSlide({
         <p className="mt-2 text-body-base text-text-secondary">{subtitle}</p>
       </div>
 
-      <div className="flex flex-1 items-center justify-center py-6">
-        <MascotIllustration pose={mascotPose} alt={mascotAlt} className="w-64" />
+      <div className="flex flex-1 items-center justify-center py-4">
+        <MascotIllustration pose={mascotPose} alt={mascotAlt} className="w-100" />
       </div>
 
       <div className="flex items-center justify-center gap-6 pb-8">
@@ -74,9 +94,36 @@ export function OnboardingSlide({
           type="button"
           onClick={onNext}
           aria-label="Lanjut"
-          className="flex size-14 items-center justify-center rounded-full bg-surface text-primary shadow-md hover:bg-primary-light"
+          className="
+            flex
+            size-14
+            items-center
+            justify-center
+
+            rounded-full
+
+            bg-white/80
+            backdrop-blur-md
+            border
+            border-white/40
+
+            text-primary
+
+            shadow-md
+
+            transition-all
+            duration-200
+
+            hover:bg-primary-light
+            hover:scale-105
+            hover:shadow-lg
+
+            active:scale-95
+            "
         >
-          <ArrowRight className="size-5" aria-hidden="true" />
+          <ArrowRight
+            className="size-5 transition-transform duration-200 group-hover:translate-x-0.5"
+          />
         </button>
       </div>
     </div>

@@ -23,17 +23,19 @@ export function AuthCard({
   children,
   className,
 }: AuthCardProps) {
-  return (
-    <div
-      className={cn(
-        "bg-surface",
-        variant === "sheet"
-          ? "rounded-t-[2.5rem] shadow-[0_-8px_30px_rgba(29,36,51,0.08)] px-6 pt-8 pb-8"
-          : "mx-5 rounded-[2rem] shadow-xl px-6 pt-8 pb-8",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+return (
+  <div
+    className={cn(
+      // Glassmorphism
+      "border border-white/40 bg-white/75 backdrop-blur-xl",
+
+      variant === "sheet"
+        ? "rounded-t-[2.5rem] px-6 pt-8 pb-8 shadow-[0_-20px_50px_rgba(91,61,245,0.12)]"
+        : "mx-5 rounded-[2rem] px-6 pt-8 pb-8 shadow-[0_20px_50px_rgba(91,61,245,0.12)]",
+
+      className
+    )}
+  >
+    {children}
+  </div>
+)};
