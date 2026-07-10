@@ -8,3 +8,17 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function maskEmail(email: string): string {
+  const [username, domain] = email.split("@");
+
+  if (!username || !domain) {
+    return email;
+  }
+
+  if (username.length <= 2) {
+    return `${username[0]}***@${domain}`;
+  }
+
+  return `${username.slice(0, 2)}***@${domain}`;
+}
