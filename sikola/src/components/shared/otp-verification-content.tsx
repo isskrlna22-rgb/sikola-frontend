@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MailCheck } from "lucide-react";
-import { AuthHeader } from "@/components/shared/auth-header";
+import { AuthHeader } from "@/components/shared/page-header";
 import { Logo } from "@/components/ui/logo";
 import { AuthCard } from "@/components/ui/auth-card";
 import { OtpInput } from "@/components/ui/otp-input";
