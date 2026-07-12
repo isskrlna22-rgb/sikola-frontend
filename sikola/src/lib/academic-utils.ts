@@ -20,3 +20,15 @@ export function getGradeColorClass(score: number): string {
   if (score >= 65) return "text-warning";
   return "text-danger";
 }
+
+/** "2026-05-22" (dari <input type="date">) -> "22 Mei 2026". */
+export function formatDateLabel(isoDate: string): string {
+  if (!isoDate) return "";
+  const date = new Date(`${isoDate}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return isoDate;
+  return date.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}

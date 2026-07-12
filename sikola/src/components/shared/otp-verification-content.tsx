@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MailCheck } from "lucide-react";
-import { AuthHeader } from "@/components/shared/page-header";
+import { PageHeader } from "@/components/shared/page-header";
 import { Logo } from "@/components/ui/logo";
 import { AuthCard } from "@/components/ui/auth-card";
 import { OtpInput } from "@/components/ui/otp-input";
@@ -77,7 +77,7 @@ export function OtpVerificationContent() {
 
   return (
     <AuthGradientPage>
-      <AuthHeader onBack={() => router.push("/forgot-password")} />
+      <PageHeader onBack={() => router.push("/forgot-password")} />
 
       <div className="flex flex-col items-center px-6 pt-4 text-center">
         <Logo size="md" />

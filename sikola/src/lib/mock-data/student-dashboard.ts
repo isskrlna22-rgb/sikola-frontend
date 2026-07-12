@@ -2,6 +2,7 @@ import type { StudentProfile } from "@/types/user";
 import type { TodayAttendance, MonthlyAttendanceStats } from "@/types/attendance";
 import type { ScheduleItem } from "@/types/schedule";
 import type { Announcement } from "@/types/announcement";
+import { getMockScheduleForDay, getCurrentDayOfWeek } from "@/lib/mock-data/schedule";
 
 /**
  * Data dummy untuk Dashboard Siswa. Sengaja dipisah per domain (profile,
@@ -39,35 +40,13 @@ export function getMockMonthlyAttendanceStats(): MonthlyAttendanceStats {
 }
 
 export function getMockTodaySchedule(): ScheduleItem[] {
-  return [
-    {
-      id: "sch-1",
-      startTime: "07:00",
-      endTime: "08:30",
-      subject: "Matematika",
-      teacherName: "Bu Sinta Rahmawati",
-      room: "R.201",
-      status: "selesai",
-    },
-    {
-      id: "sch-2",
-      startTime: "09:00",
-      endTime: "10:30",
-      subject: "Basis Data",
-      teacherName: "Pak Dedi Kurniawan",
-      room: "Lab 1",
-      status: "berlangsung",
-    },
-    {
-      id: "sch-3",
-      startTime: "11:00",
-      endTime: "12:30",
-      subject: "PBO",
-      teacherName: "Pak Arif Maulana",
-      room: "Lab 1",
-      status: "akan-datang",
-    },
-  ];
+  // Dashboard cuma butuh potongan "hari ini" — ambil dari sumber
+  // mingguan (lib/mock-data/schedule.ts) supaya datanya konsisten dengan
+  // yang ditampilkan di halaman Jadwal. Default ke "senin" kalau akhir
+  // pekan (tidak ada sekolah Sabtu/Minggu) supaya Dashboard tetap ada
+  // isinya untuk didemokan.
+  const day = getCurrentDayOfWeek() ?? "senin";
+  return getMockScheduleForDay(day);
 }
 
 export function getMockAnnouncements(): Announcement[] {
@@ -79,6 +58,8 @@ export function getMockAnnouncements(): Announcement[] {
       category: "school",
       excerpt:
         "Ujian Akhir Semester Genap akan dilaksanakan pada tanggal 3-7 Juni 2024.",
+      content:
+        "Ujian Akhir Semester Genap akan dilaksanakan pada tanggal 3-7 Juni 2024 dengan ketentuan sebagai berikut:\n\n- Datang 15 menit sebelum ujian dimulai\n- Membawa alat tulis lengkap\n- Berpakaian rapi sesuai ketentuan sekolah\n- Dilarang membawa catatan kecil\n\nJadwal lengkap per mata pelajaran akan diumumkan menyusul lewat wali kelas masing-masing.",
       publishedAt: "2 jam lalu",
       isNew: true,
     },
@@ -88,6 +69,8 @@ export function getMockAnnouncements(): Announcement[] {
       author: "Admin Sekolah",
       category: "school",
       excerpt: "Libur akhir semester dimulai tanggal 8-17 Juni 2024.",
+      content:
+        "Diberitahukan kepada seluruh siswa bahwa libur akhir semester genap dimulai tanggal 8-17 Juni 2024. Kegiatan belajar mengajar akan kembali normal pada tanggal 18 Juni 2024. Selamat berlibur dan tetap jaga kesehatan.",
       publishedAt: "Kemarin",
     },
     {
@@ -96,7 +79,24 @@ export function getMockAnnouncements(): Announcement[] {
       author: "Wali Kelas",
       category: "class",
       excerpt: "Pengambilan raport dilaksanakan di ruang kelas masing-masing.",
+      content:
+        "Pengambilan raport semester genap akan dilaksanakan di ruang kelas masing-masing sesuai jadwal yang ditentukan wali kelas. Mohon orang tua/wali hadir tepat waktu.",
       publishedAt: "2 hari lalu",
     },
+    {
+      id: "ann-4",
+      title: "Konfirmasi Kehadiran Wali Murid",
+      author: "Wali Kelas",
+      category: "personal",
+      excerpt:
+        "Mohon konfirmasi kehadiran orang tua/wali untuk pertemuan pekan depan.",
+      content:
+        "Mohon konfirmasi kehadiran orang tua/wali untuk pertemuan pekan depan lewat wali kelas masing-masing selambat-lambatnya 3 hari sebelum acara berlangsung.",
+      publishedAt: "3 hari lalu",
+    },
   ];
+}
+
+export function getMockAnnouncementById(id: string): Announcement | null {
+  return getMockAnnouncements().find((a) => a.id === id) ?? null;
 }

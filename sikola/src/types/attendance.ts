@@ -25,3 +25,41 @@ export interface MonthlyAttendanceStats {
   totalHariEfektif: number;
   terlambatCount: number;
 }
+
+/**
+ * Satu baris riwayat absensi (beda dari TodayAttendance yang cuma untuk
+ * hari ini). Dipakai di halaman Riwayat Kehadiran.
+ */
+export interface AttendanceHistoryEntry {
+  id: string;
+  /** Format ISO "YYYY-MM-DD" — dipakai untuk sorting & filter bulan. */
+  date: string;
+  status: AttendanceStatus;
+  checkInTime?: string;
+  checkOutTime?: string;
+}
+
+/**
+ * Hasil check-in QR — discriminated union berdasarkan `status` supaya
+ * TypeScript bisa narrow field yang relevan per kasus (mis. `lateByMinutes`
+ * cuma ada di status "late"). Dipakai oleh attendanceService.checkInWithQrCode
+ * dan <AttendanceResultView>.
+ */
+export type CheckInResult =
+  | {
+      status: "success";
+      checkInTime: string;
+      date: string;
+      location: string;
+      isLocationValid: boolean;
+    }
+  | {
+      status: "late";
+      checkInTime: string;
+      cutoffTime: string;
+      lateByMinutes: number;
+    }
+  | {
+      status: "invalid";
+      reason: string;
+    };

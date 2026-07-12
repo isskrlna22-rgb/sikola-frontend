@@ -21,6 +21,10 @@ export interface GlassCardProps {
  * - border border-white/40
  * - rounded-3xl
  * - shadow lembut bertona ungu brand (bukan shadow hitam generik)
+ *
+ * Efek kaca dipertegas dengan inset highlight tipis di tepi atas (mirip
+ * pantulan cahaya di permukaan kaca sungguhan) di atas shadow ungu dasar
+ * — supaya kartu terasa "mengambang", bukan cuma kotak putih transparan.
  */
 export function GlassCard({ children, className, as = "div" }: GlassCardProps) {
   const Component = as;
@@ -28,7 +32,7 @@ export function GlassCard({ children, className, as = "div" }: GlassCardProps) {
     <Component
       className={cn(
         "rounded-3xl border border-white/40 bg-white/72 backdrop-blur-xl",
-        "shadow-[0_8px_32px_rgba(91,61,245,0.12)]",
+        "shadow-[0_8px_32px_rgba(91,61,245,0.12),inset_0_1px_0_rgba(255,255,255,0.6)]",
         className
       )}
     >

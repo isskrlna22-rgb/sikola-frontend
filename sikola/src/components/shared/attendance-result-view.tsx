@@ -49,7 +49,7 @@ export function AttendanceResultView({
   const isSuccess = result.status === "success";
 
   return (
-    <div className="flex flex-1 flex-col items-center px-6 pb-6 pt-4 text-center">
+    <div className="animate-page-in flex flex-1 flex-col items-center px-6 pb-6 pt-4 text-center">
       <MascotIllustration pose="wave" alt="Maskot SIKO" className="w-32" />
 
       <h1

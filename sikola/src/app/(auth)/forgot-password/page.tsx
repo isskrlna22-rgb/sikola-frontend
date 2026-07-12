@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Send, ShieldCheck } from "lucide-react";
-import { AuthHeader } from "@/components/shared/page-header";
+import { PageHeader } from "@/components/shared/page-header";
 import { Logo } from "@/components/ui/logo";
 import { MascotIllustration } from "@/components/shared/mascot-illustration";
 import { AuthCard } from "@/components/ui/auth-card";
@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <AuthGradientPage>
-      <AuthHeader onBack={() => router.back()} />
+      <PageHeader onBack={() => router.back()} />
 
       <div className="flex flex-col items-center px-6 pt-4 text-center">
         <Logo size="md" />
