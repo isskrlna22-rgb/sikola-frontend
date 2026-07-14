@@ -33,14 +33,26 @@ export const authService = {
     // const res = await httpClient.post("/api/auth/login", payload);
     // if (!res.ok) throw new Error(await res.text());
     // return res.json();
-    await new Promise((resolve) => setTimeout(resolve, 900));
-
-    if (!payload.email || !payload.password) {
-      throw new Error("Email dan password wajib diisi.");
-    }
-
-    return { firstLogin: false };
+    const response = await fetch("http://127.0.0.1:8000/api/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
   },
+  body: JSON.stringify({
+    email: payload.email,
+    password: payload.password,
+  }),
+});
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+
+  return {
+    firstLogin: false,
+  };
+},
 
   /**
    * Step 1 - Forgot Password: minta backend mengirim kode OTP ke email
