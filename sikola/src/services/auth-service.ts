@@ -113,4 +113,39 @@ export const authService = {
       throw new Error("Password minimal 8 karakter.");
     }
   },
+
+  /**
+   * Logout — hapus sesi. Saat ini cuma simulasi delay (belum ada
+   * AuthContext/token sungguhan untuk dihapus). TODO: begitu
+   * AuthContext siap, tambahkan clear token/cookie di sini, lalu
+   * pemanggil (halaman Profil) tetap tidak perlu berubah.
+   */
+  async logout(): Promise<void> {
+    // TODO: await httpClient.post("/api/auth/logout");
+    await new Promise((resolve) => setTimeout(resolve, 600));
+  },
+
+  /**
+   * Ubah password dari halaman /profil/ubah-password (beda konteks dari
+   * changePasswordFirstLogin/resetPasswordWithToken — di sini pengguna
+   * SUDAH login dan tahu password lamanya). Dummy: password lama yang
+   * "benar" untuk demo adalah "password123", sisanya dianggap salah,
+   * supaya state gagal bisa didemokan tanpa backend.
+   */
+  async changePassword({
+    oldPassword,
+    newPassword,
+  }: {
+    oldPassword: string;
+    newPassword: string;
+  }): Promise<void> {
+    // TODO: const res = await httpClient.post("/api/auth/change-password", { oldPassword, newPassword });
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    if (oldPassword !== "password123") {
+      throw new Error("Password lama yang kamu masukkan salah.");
+    }
+    if (newPassword.length < 8) {
+      throw new Error("Password baru minimal 8 karakter.");
+    }
+  },
 };

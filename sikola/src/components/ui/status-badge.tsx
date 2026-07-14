@@ -17,7 +17,9 @@ export type StatusKind =
   | "pending"
   | "disetujui"
   | "ditolak"
-  | "dibatalkan";
+  | "dibatalkan"
+  | "aktif"
+  | "nonaktif";
 
 export interface StatusBadgeProps {
   status: StatusKind;
@@ -43,6 +45,11 @@ const STATUS_CONFIG: Record<StatusKind, { label: string; className: string }> = 
   ditolak: { label: "Ditolak", className: "bg-danger/10 text-danger" },
   dibatalkan: {
     label: "Dibatalkan",
+    className: "bg-secondary/20 text-text-secondary",
+  },
+  aktif: { label: "Aktif", className: "bg-success/10 text-success" },
+  nonaktif: {
+    label: "Nonaktif",
     className: "bg-secondary/20 text-text-secondary",
   },
 };

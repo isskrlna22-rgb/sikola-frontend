@@ -1,4 +1,4 @@
-import type { StudentProfile } from "@/types/user";
+import type { StudentProfile, StudentProfileFormValues } from "@/types/user";
 import type { TodayAttendance, MonthlyAttendanceStats } from "@/types/attendance";
 import type { ScheduleItem } from "@/types/schedule";
 import type { Announcement } from "@/types/announcement";
@@ -19,7 +19,26 @@ export function getMockStudentProfile(): StudentProfile {
     className: "XII RPL",
     nis: "12345678",
     isOnline: true,
+    nisn: "0051234567",
+    jurusan: "Rekayasa Perangkat Lunak",
+    email: "anisa.lidia.01@sikola.belajar.id",
+    phone: "0812-3456-7890",
+    address: "Jl. Raya Ciwidey No. 45, Kab. Bandung, Jawa Barat",
   };
+}
+
+/**
+ * Simpan perubahan profil (dummy — belum kirim ke backend). TODO: ganti
+ * jadi panggilan profileService.updateProfile(values) begitu backend
+ * siap; signature (terima StudentProfileFormValues, kembalikan
+ * StudentProfile) dipertahankan sama supaya halaman /profil/edit tidak
+ * perlu berubah.
+ */
+export async function saveMockStudentProfile(
+  values: StudentProfileFormValues
+): Promise<StudentProfile> {
+  await new Promise((resolve) => setTimeout(resolve, 800));
+  return { ...getMockStudentProfile(), ...values };
 }
 
 export function getMockTodayAttendance(): TodayAttendance {
