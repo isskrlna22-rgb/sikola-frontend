@@ -20,7 +20,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex flex-1 justify-center md:bg-border/50 md:py-10">
-      <div className="relative flex min-h-screen w-full flex-1 flex-col overflow-hidden md:my-auto md:min-h-[860px] md:max-w-[430px] md:rounded-[2.5rem] md:shadow-2xl">
+      <div className="relative flex min-h-screen w-full flex-1 flex-col overflow-hidden md:my-auto md:min-h-215 md:max-w-107.5 md:rounded-[2.5rem] md:shadow-2xl">
         {children}
       </div>
     </div>

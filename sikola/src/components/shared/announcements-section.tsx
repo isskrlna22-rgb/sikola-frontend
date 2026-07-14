@@ -6,10 +6,15 @@ import type { Announcement } from "@/types/announcement";
 
 export interface AnnouncementsSectionProps {
   announcements: Announcement[];
+  /** Tujuan link "Lihat Semua" — default "/pengumuman" (dipakai Dashboard
+   * Siswa). Dashboard Guru mengoper "/guru/pengumuman" supaya tidak
+   * nyasar ke shell (BottomNav) siswa. */
+  viewAllHref?: string;
 }
 
 export function AnnouncementsSection({
   announcements,
+  viewAllHref = "/pengumuman",
 }: AnnouncementsSectionProps) {
   return (
     <GlassCard as="section" className="mx-5 mt-4 p-4">
@@ -18,7 +23,7 @@ export function AnnouncementsSection({
           Pengumuman Sekolah
         </h2>
         <Link
-          href="/pengumuman"
+          href={viewAllHref}
           className="flex items-center gap-0.5 text-body-sm font-medium text-primary"
         >
           Lihat Semua

@@ -32,11 +32,11 @@ const STUDENT_ITEMS: NavItem[] = [
 // (Kehadiran, bukan Scan QR) sesuai dokumen analisis awal. Belum dipakai
 // sekarang, tapi menghindari perlu bikin komponen BottomNav kedua nanti.
 const TEACHER_ITEMS: NavItem[] = [
-  { href: "/dashboard", label: "Beranda", icon: Home },
-  { href: "/jadwal", label: "Jadwal", icon: Calendar },
-  { href: "/kehadiran", label: "Kehadiran", icon: UserPlus },
-  { href: "/akademik", label: "Layanan Akademik", icon: GraduationCap },
-  { href: "/profil", label: "Profil", icon: User },
+  { href: "/guru/dashboard", label: "Beranda", icon: Home },
+  { href: "/guru/jadwal", label: "Jadwal", icon: Calendar },
+  { href: "/guru/kehadiran", label: "Kehadiran", icon: UserPlus },
+  { href: "/guru/akademik", label: "Akademik", icon: GraduationCap },
+  { href: "/guru/profil", label: "Profil", icon: User },
 ];
 
 export interface BottomNavProps {
@@ -93,21 +93,24 @@ if (isCenter) {
   );
 }
 
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-label={item.label}
-            aria-current={isActive ? "page" : undefined}
-            className={cn(
-              "flex flex-1 flex-col items-center gap-1 rounded-2xl py-2 text-caption font-medium transition-colors",
-              isActive ? "text-primary" : "text-text-secondary"
-            )}
-          >
-            <Icon className="size-5" aria-hidden="true" />
-            <span>{item.label}</span>
-          </Link>
-        );
+return (
+  <Link
+    key={item.href}
+    href={item.href}
+    aria-label={item.label}
+    aria-current={isActive ? "page" : undefined}
+    className={cn(
+      "flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl py-2 text-caption font-medium transition-colors",
+      isActive ? "text-primary" : "text-text-secondary"
+    )}
+  >
+    <Icon className="size-5 shrink-0" aria-hidden="true" />
+
+    <span className="max-w-full truncate text-center">
+      {item.label}
+    </span>
+  </Link>
+);
       })}
     </nav>
   );

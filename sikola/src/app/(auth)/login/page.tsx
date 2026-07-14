@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Mail, Lock } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { MascotIllustration } from "@/components/shared/mascot-illustration";
@@ -11,6 +12,7 @@ import { Input, PasswordInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
 import { GoogleIcon } from "@/components/ui/google-icon";
+import { Apple } from "lucide-react";
 import { ContactAdminLink } from "@/components/shared/contact-admin-link";
 import { authService } from "@/services/auth-service";
 
@@ -39,11 +41,11 @@ export default function LoginPage() {
         router.push("/new-password");
         return;
       }
-      // TODO: begitu AuthContext + routing per-role sudah ada, ganti ke
-      // dashboard sesuai role (student -> (student)/dashboard, teacher ->
-      // (teacher)/dashboard). Untuk sekarang diarahkan ke /dashboard yang
-      // belum dibuat — sengaja 404 dulu, sama seperti pola Onboarding.
-      router.push("/dashboard");
+      // Routing per-role: siswa -> /dashboard, guru -> /guru/dashboard.
+      // TODO: begitu AuthContext/session asli ada, role idealnya dibaca
+      // dari response backend, bukan dari state RoleSwitch di form ini
+      // (yang cuma menentukan endpoint mana yang dipanggil saat login).
+      router.push(role === "teacher" ? "/guru/dashboard" : "/dashboard");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Login gagal, silakan coba lagi."
@@ -57,15 +59,11 @@ export default function LoginPage() {
     <div className="flex flex-1 flex-col bg-background">
       <div className="flex items-start justify-between gap-4 px-6 pt-8">
         <div>
-          <Logo
-             tone="color"
-             size="sm"
-              className="items-start"
-            />
+          <Logo size="sm" className="items-start" />
           <h1 className="mt-5 font-heading text-h2 font-bold text-primary-dark">
             Welcome !
           </h1>
-          <p className="mt-1 max-w-[220px] text-body-base text-text-secondary">
+          <p className="mt-1 max-w-55 text-body-base text-text-secondary">
             {WELCOME_SUBTITLE[role]}
           </p>
         </div>
@@ -101,12 +99,12 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <a
+            <Link
               href="/forgot-password"
               className="self-end text-body-sm font-semibold text-primary"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {error && <p className="text-body-sm text-danger">{error}</p>}
@@ -125,8 +123,8 @@ export default function LoginPage() {
             >
               Google
             </Button>
-        </div>
-
+            
+          </div>
         </form>
 
         <p className="mt-6 text-center text-body-sm text-text-secondary">
