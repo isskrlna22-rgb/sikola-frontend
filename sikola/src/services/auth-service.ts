@@ -62,8 +62,21 @@ export const authService = {
    */
   async requestPasswordReset(email: string): Promise<void> {
     // TODO: const res = await httpClient.post("/api/auth/forgot-password", { email });
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    if (!email) throw new Error("Email wajib diisi.");
+    const response = await fetch("http://127.0.0.1:8000/api/forgot-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Gagal mengirim OTP");
+  }
+
   },
 
   /**
@@ -79,11 +92,25 @@ export const authService = {
     code: string;
   }): Promise<VerifyOtpResult> {
     // TODO: const res = await httpClient.post("/api/auth/verify-otp", { email, code });
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    if (code.length < 6) {
-      throw new Error("Kode verifikasi tidak valid.");
-    }
-    return { resetToken: `stub-reset-token-${email}` };
+    const response = await fetch("http://127.0.0.1:8000/api/verify-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      otp: code,
+    }),
+  });
+   const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "OTP tidak valid");
+  }
+
+  return {
+    resetToken: "verified",
+  };
   },
 
   /** Step 2b - kirim ulang kode OTP (tombol "Kirim ulang kode"). */
