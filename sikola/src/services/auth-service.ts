@@ -8,8 +8,12 @@ export interface LoginPayload {
 
 export interface LoginResult {
   firstLogin: boolean;
-  // Field lain (token/user profile/permission) menyusul begitu kontrak API
-  // dari backend Laravel sudah fix (lihat catatan di AuthContext nanti).
+  user: {
+    id: number;
+    nama: string;
+    email: string;
+    role: string;
+  };
 }
 
 export interface VerifyOtpResult {
@@ -48,12 +52,25 @@ export const authService = {
   if (!response.ok) {
     throw new Error(data.message);
   }
-
+localStorage.setItem("user", JSON.stringify(data.user));
   return {
-    firstLogin: false,
-  };
+  firstLogin: false,
+  user: data.user,
+};
 },
+async getStudentDashboard(email: string) {
+  const response = await fetch(
+    `http://127.0.0.1:8000/api/student/dashboard?email=${email}`
+  );
 
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+
+  return data;
+},
   /**
    * Step 1 - Forgot Password: minta backend mengirim kode OTP ke email
    * terdaftar. Tidak mengembalikan apa pun selain sukses/gagal — backend
@@ -116,8 +133,22 @@ export const authService = {
   /** Step 2b - kirim ulang kode OTP (tombol "Kirim ulang kode"). */
   async resendOtp(email: string): Promise<void> {
     // TODO: const res = await httpClient.post("/api/auth/resend-otp", { email });
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    if (!email) throw new Error("Email wajib diisi.");
+  
+ const response = await fetch("http://127.0.0.1:8000/api/forgot-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+
+  });
+   const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Gagal mengirim ulang OTP");
+  }
   },
 
   /**
@@ -126,19 +157,29 @@ export const authService = {
    * bawah — di sini pengguna belum login sama sekali.
    */
   async resetPasswordWithToken({
-    resetToken,
-    newPassword,
-  }: {
-    resetToken: string;
-    newPassword: string;
-  }): Promise<void> {
-    // TODO: const res = await httpClient.post("/api/auth/reset-password", { resetToken, newPassword });
-    void resetToken; // dipakai nanti saat endpoint asli tersambung
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    if (newPassword.length < 8) {
-      throw new Error("Password minimal 8 karakter.");
-    }
-  },
+  email,
+  newPassword,
+}: {
+  email: string;
+  newPassword: string;
+}): Promise<void> {
+  const response = await fetch("http://127.0.0.1:8000/api/reset-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password: newPassword,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Gagal mengubah password.");
+  }
+},
 
   /**
    * Step 3 (alternatif) - Force Change Password saat first_login=true.

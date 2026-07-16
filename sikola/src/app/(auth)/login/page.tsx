@@ -33,8 +33,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const result = await authService.login({ role, email, password });
-      // Sesuai flow "Force Change Password": kalau backend menandai
-      // first_login = true, arahkan ke New Password, bukan Dashboard.
+      localStorage.setItem("user", JSON.stringify(result.user));
       if (result.firstLogin) {
         router.push("/new-password");
         return;

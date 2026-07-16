@@ -33,6 +33,7 @@ export function NewPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+  const email = searchParams.get("email");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -56,10 +57,10 @@ export function NewPasswordContent() {
     setIsLoading(true);
     try {
       if (token) {
-        await authService.resetPasswordWithToken({
-          resetToken: token,
-          newPassword: password,
-        });
+       await authService.resetPasswordWithToken({
+       email: email!,
+       newPassword: password,
+       });
       } else {
         await authService.changePasswordFirstLogin(password);
       }
