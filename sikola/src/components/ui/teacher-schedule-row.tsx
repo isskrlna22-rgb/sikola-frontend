@@ -1,4 +1,4 @@
-import { Clock, MapPin } from "lucide-react";
+import { Clock, MapPin, Users } from "lucide-react";
 import type { TeacherScheduleItem } from "@/types/teacher";
 import { StatusBadge } from "@/components/ui/status-badge";
 
@@ -8,9 +8,10 @@ export interface TeacherScheduleRowProps {
 
 /**
  * Baris jadwal mengajar guru — struktur sama dengan <ScheduleRow> siswa,
- * tapi menampilkan `className` (kelas yang diajar), bukan nama guru.
- * Dibuat komponen terpisah, bukan reuse langsung, karena field yang
- * relevan beda maknanya per role (lihat catatan di types/teacher.ts).
+ * tapi menampilkan `className` (kelas yang diajar) dan `studentCount`
+ * (jumlah siswa), bukan nama guru. Dibuat komponen terpisah, bukan
+ * reuse langsung, karena field yang relevan beda maknanya per role
+ * (lihat catatan di types/teacher.ts).
  */
 export function TeacherScheduleRow({ item }: TeacherScheduleRowProps) {
   return (
@@ -33,7 +34,13 @@ export function TeacherScheduleRow({ item }: TeacherScheduleRowProps) {
           {item.room}
         </p>
       </div>
-      <StatusBadge status={item.status} />
+      <div className="flex shrink-0 flex-col items-end gap-1">
+        <StatusBadge status={item.status} />
+        <span className="flex items-center gap-1 text-caption text-text-secondary">
+          <Users className="size-3" aria-hidden="true" />
+          {item.studentCount} siswa
+        </span>
+      </div>
     </li>
   );
 }

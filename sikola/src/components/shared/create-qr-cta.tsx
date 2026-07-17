@@ -10,7 +10,7 @@ import { GlassCard } from "@/components/ui/glass-card";
  */
 export function CreateQrCta() {
   return (
-    <Link href="/guru/kehadiran" className="mx-5 mt-4 block">
+    <Link href="/guru/kehadiran/sesi-absensi" className="mx-5 mt-4 block">
       <GlassCard
         as="section"
         className="flex items-center gap-4 p-5 transition-transform active:scale-[0.98]"

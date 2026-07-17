@@ -7,8 +7,8 @@ import type { Announcement } from "@/types/announcement";
 export interface AnnouncementsSectionProps {
   announcements: Announcement[];
   /** Tujuan link "Lihat Semua" — default "/pengumuman" (dipakai Dashboard
-   * Siswa). Dashboard Guru mengoper "/guru/pengumuman" supaya tidak
-   * nyasar ke shell (BottomNav) siswa. */
+   * Siswa). Dashboard Guru mengoper "/guru/akademik/pengumuman" supaya
+   * tidak nyasar ke shell (BottomNav) siswa. */
   viewAllHref?: string;
 }
 

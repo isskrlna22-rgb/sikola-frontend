@@ -46,7 +46,7 @@ export default function TeacherDashboardPage() {
       <TeacherScheduleSection schedule={schedule} />
       <AnnouncementsSection
         announcements={announcements}
-        viewAllHref="/guru/pengumuman"
+        viewAllHref="/guru/akademik/pengumuman"
       />
       <TeacherQuickActions />
     </div>

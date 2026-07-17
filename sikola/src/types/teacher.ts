@@ -1,4 +1,5 @@
 import type { ScheduleStatus } from "@/types/schedule";
+import type { AttendanceStatus } from "@/types/attendance";
 
 export interface TeacherProfile {
   name: string;
@@ -44,6 +45,7 @@ export interface TeacherScheduleItem {
   subject: string;
   className: string;
   room: string;
+  studentCount: number;
   status: ScheduleStatus;
 }
 
@@ -72,4 +74,47 @@ export interface ClassAttendanceRecap {
   sakit: number;
   alpa: number;
   totalStudents: number;
+}
+
+/**
+ * Satu baris siswa di Monitoring Kehadiran. `status` reuse
+ * `AttendanceStatus` dari types/attendance.ts (union
+ * hadir/izin/sakit/alpa/terlambat) — vocabulary status kehadiran sama
+ * persis lintas role, tidak perlu union baru.
+ */
+export interface StudentAttendanceEntry {
+  id: string;
+  name: string;
+  /** NIS */
+  studentNumber: string;
+  status: AttendanceStatus;
+  checkInTime?: string;
+}
+
+/** Rekap kehadiran satu kelas untuk satu BULAN — dipakai di Rekap Kehadiran. */
+export interface TeacherAttendanceRecap {
+  /** Persentase kehadiran, 0-100. */
+  percentage: number;
+  hadir: number;
+  izin: number;
+  sakit: number;
+  alpa: number;
+  totalStudents: number;
+}
+
+export type AttendanceValidationType = "izin" | "sakit" | "terlambat";
+
+/**
+ * Satu pengajuan yang menunggu (atau sudah) divalidasi guru. `status`
+ * reuse StatusKind dari StatusBadge ("pending"/"disetujui"/"ditolak").
+ */
+export interface AttendanceValidationRequest {
+  id: string;
+  studentName: string;
+  className: string;
+  type: AttendanceValidationType;
+  reason: string;
+  dateLabel: string;
+  timeLabel?: string;
+  status: "pending" | "disetujui" | "ditolak";
 }
